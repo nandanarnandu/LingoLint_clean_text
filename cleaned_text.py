@@ -33,7 +33,4 @@ def clean_text(text):
     
     return text
 
-# Example use
-raw_text = input()
 
-print(clean_text(raw_text))
