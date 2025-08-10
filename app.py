@@ -21,24 +21,18 @@ def clean_text(text):
 
     return text
     '''
-code = ' '
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     input_text = ''
     cleaned_text = ''
-    show_code = False
-
     if request.method == 'POST':
         input_text = request.form.get('input_text', '')
         cleaned_text = clean_text(input_text)
-        show_code = True
-
     return render_template('index.html',
                            input_text=input_text,
                            cleaned_text=cleaned_text,
-                           cleaning_code=cleaning_code if show_code else code
-                           )
+                           cleaning_code=cleaning_code)
 
 if __name__ == '__main__':
     app.run(debug=True)
