@@ -1,4 +1,3 @@
-# clean_text
 # 🧹 Text Cleaner
 
 A simple and efficient **Flask web application** for cleaning raw text by removing unwanted characters, HTML tags, email addresses, URLs, and other unnecessary elements.  
