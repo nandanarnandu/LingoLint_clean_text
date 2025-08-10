@@ -8,18 +8,26 @@ cleaning_code = '''
 import re
 
 def clean_text(text):
+    text = text.lower()
     text = re.sub(r'<[^>]+>', ' ', text)
-    text = re.sub(r'http\S+|www\S+', ' ', text)
     text = re.sub(r'\S+@\S+', ' ', text)
-    text = re.sub(r'\bvar\b\s*\w*\s*=?\s*\d*;', ' ', text)
-    text = re.sub(r'&\w+;', ' ', text)
-    text = re.sub(r'\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b', ' ', text)
-    text = re.sub(r'([!?.#\-])\1{1,}', ' ', text)
-    text = re.sub(r'[^a-zA-Z0-9\s,.!?\'"-]', ' ', text)
-    text = re.sub(r'\s+', ' ', text)
-    text = text.strip()
 
-    return text
+    def strip_www_and_tld(match):
+        url = match.group()
+        url = re.sub(r'^www\.', '', url)  
+        url = re.sub(r'\.(com|org|net|edu|gov|in|co|io|info|biz|us|uk|au)$', '', url) 
+        return url.split('.')[0]  
+
+    text = re.sub(r'\\b(?:https?://)?(?:www\.)?\w+\.(?:com|org|net|edu|gov|in|co|io|info|biz|us|uk|au)\\b', strip_www_and_tld, text)
+    text = re.sub(r'\\b(?:https?://\S*|www\.\S*|www\\b)\\b', ' ', text, flags=re.IGNORECASE)
+    text = re.sub(r'\\bvar\\b\s*\w*\s*=?\s*\d*;', ' ', text)
+    text = re.sub(r'&\w+;', ' ', text)
+    text = re.sub(r'\\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\\b', ' ', text)
+    text = re.sub(r'([!?.#\-])\\1{1,}', ' ', text)
+    text = re.sub(r'[^a-zA-Z0-9\s,.!?\\'"-]', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+
+    return text.strip()
     '''
 
 @app.route('/', methods=['GET', 'POST'])
