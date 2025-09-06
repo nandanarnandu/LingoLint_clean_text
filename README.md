@@ -6,6 +6,8 @@ LingoLint is an efficient and simple **Flask web application** designed for basi
 
 This tool is designed for writers, students, developers, and anyone who needs clean, readable text.
 
+<img width="1069" height="819" alt="Screenshot 2025-09-07 001353" src="https://github.com/user-attachments/assets/23bea615-5321-4786-930e-b2e2eede0526" />
+
 ### ✨ Features
 
 * **Lowercase** the input text for uniform formatting.
